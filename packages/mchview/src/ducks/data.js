@@ -43,8 +43,15 @@ export default produce((draft, action) => {
     completeDigits(action.payload.response.digits).then((v) => {
       // FIXME: must put back bare digit info somehow here as well ?
       draft.digits.pads = v;
+      draft.digits.isLoading = false;
+      draft.digits.isError = false;
     });
   }
+  if (action.type === "ERROR_FETCH_DIGITS") {
+    draft.digits.isLoading = false;
+    draft.digits.isError = true;
+  }
+  return draft;
 }, initialState);
 
 // selectors

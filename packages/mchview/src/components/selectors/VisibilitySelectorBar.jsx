@@ -5,26 +5,30 @@ import Switch from "@material-ui/core/Switch";
 import Grid from "@material-ui/core/Grid";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
+    margin: theme.spacing(0),
+    padding: 0,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
+    zIndex: 10,
   },
   root: {},
   label: {},
-});
+}));
 
 const VisibilitySelectorBar = ({ elements, onChange }) => {
   const classes = useStyles();
   return (
-    <Grid container className={classes.container}>
+    <Grid container spacing={2} className={classes.container}>
       {Object.entries(elements).map(([name, visible]) => (
         <Grid item key={name}>
           <FormControlLabel
             classes={{ label: classes.label, root: classes.root }}
             control={
               <Switch
+                size="small"
                 checked={visible}
                 onChange={(event) =>
                   onChange

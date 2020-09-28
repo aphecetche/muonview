@@ -14,6 +14,7 @@ importers:
       '@material-ui/lab': 4.0.0-alpha.56_3aedae70ac35f0e7ddc26f0943882404
       '@storybook/react': 5.3.19_e37394eaa9f847e20f756e6b55bb33c7
       axios: 0.19.2
+      clsx: 1.1.1
       commander: 5.1.0
       d3-scale: 3.2.1
       d3-scale-chromatic: 1.5.0
@@ -81,6 +82,7 @@ importers:
       axios: ^0.19.2
       babel-loader: ^8.1.0
       babel-plugin-lodash: ^3.3.4
+      clsx: ^1.1.1
       commander: ^5.1.0
       d3-scale: ^3.2.1
       d3-scale-chromatic: ^1.5.0
@@ -4766,7 +4768,7 @@ packages:
       is-glob: 4.0.1
       lodash: 4.17.15
       semver: 7.3.2
-      tsutils: 3.17.1_typescript@3.9.5
+      tsutils: 3.17.1
       typescript: 3.9.5
     dev: true
     engines:
@@ -15792,17 +15794,6 @@ packages:
   /tsutils/3.17.1:
     dependencies:
       tslib: 1.13.0
-    dev: true
-    engines:
-      node: '>= 6'
-    peerDependencies:
-      typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
-    resolution:
-      integrity: sha512-kzeQ5B8H3w60nFY2g8cJIuH7JDpsALXySGtwGJ0p2LSjLgay3NdIpqq5SoOBe46bKDW2iq25irHCr8wjomUS2g==
-  /tsutils/3.17.1_typescript@3.9.5:
-    dependencies:
-      tslib: 1.13.0
-      typescript: 3.9.5
     dev: true
     engines:
       node: '>= 6'

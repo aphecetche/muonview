@@ -8,7 +8,26 @@ import ListItemText from "@material-ui/core/ListItemText";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import PropTypes from "prop-types";
 
-const AvailableDataList = ({ dataList }) => {
+const defaultDataSources = [
+  {
+    id: 1,
+    filename: "/Users/laurent/cernbox/o2muon/dpl-digits.bin",
+    format: "dplsink",
+    kind: "digits",
+    sha256: "33106022e64a712ec3b5eb8becb7e81c8c0a3196",
+    indexSize: 931,
+  },
+  {
+    id: 2,
+    filename: "/Users/laurent/cernbox/o2muon/digits.v2.in",
+    format: "mchbin",
+    kind: "digits",
+    sha256: "9a84440af8532d95784a70394703a85cdbcd19ac",
+    indexSize: 931,
+  },
+];
+
+const DataSourceList = ({ dataList = defaultDataSources }) => {
   const list = dataList.map((x) => {
     const sub = `${x.format} - ${x.indexSize} events`;
     return (
@@ -26,7 +45,7 @@ const AvailableDataList = ({ dataList }) => {
   return <List>{list}</List>;
 };
 
-AvailableDataList.propTypes = {
+DataSourceList.propTypes = {
   dataList: PropTypes.arrayOf(
     PropTypes.shape({
       format: PropTypes.string,
@@ -35,4 +54,4 @@ AvailableDataList.propTypes = {
     })
   ),
 };
-export default AvailableDataList;
+export default DataSourceList;

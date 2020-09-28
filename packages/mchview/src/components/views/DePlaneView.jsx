@@ -3,33 +3,18 @@
 import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import produce from "immer";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import index from "./index.json";
 import * as categories from "../../categories";
 import SVGHighlighter from "../ui/SVGHighlighter";
 import SVGView from "./SVGView";
 import useEnvelop from "../../hooks/useEnvelop";
 import createLayer from "../elements/LayerCreator";
-import DataSourceSlider from "../selectors/DataSourceSlider";
-import { actions } from "../../ducks/data";
-import multidispatch from "../../actionHelper";
 import VisibilitySelectorBar from "../selectors/VisibilitySelectorBar";
 import DePlaneViewHeader from "./DePlaneViewHeader";
-import Alert from "@material-ui/lab/Alert";
 import StatusBar from "../layout/StatusBar";
-
-const ErrorMessage = ({ message }) => <Alert severity="error">{message}</Alert>;
-ErrorMessage.propTypes = {
-  message: PropTypes.string.isRequired,
-};
-
-const getItems = (sample) =>
-  sample.index.map((x) => ({
-    isLoaded: false,
-    size: (x.end - x.start) / sample.elemsize,
-  }));
+import DataSourceSelectorSheet from "../selectors/DataSourceSelectorSheet";
+import ErrorMessage from "../ui/ErrorMessage";
 
 const useStyles = makeStyles({
   root: {},
@@ -79,8 +64,6 @@ const DePlaneView = ({
 
   const classes = useStyles();
 
-  const dispatch = useDispatch();
-
   const theme = useTheme();
 
   const layerStack = layers.map((layer) =>
@@ -107,30 +90,12 @@ const DePlaneView = ({
   const xoff = geo ? -(geo.x - geo.sx / 2.0) : 0;
   const yoff = geo ? -(geo.y - geo.sy / 2.0) : 0;
 
-  const dataSource = {
-    url: "http://localhost:3000",
-    name: "/Users/laurent/cernbox/o2muon/dpl-digits.bin",
-    sha256: "33106022e64a712ec3b5eb8becb7e81c8c0a3196",
-  };
-
   return (
     <div className={classes.deplaneview}>
-      <DePlaneViewHeader id={id} />
+      <DePlaneViewHeader id={id} drawer=<DataSourceSelectorSheet /> />
       <VisibilitySelectorBar
         elements={isVisible}
         onChange={onVisibilityChange}
-      />
-      <DataSourceSlider
-        name={dataSource.name}
-        items={getItems(index)}
-        description="dplsink"
-        kind="digits"
-        onClick={(ix) =>
-          multidispatch(
-            dispatch,
-            actions.fetchDigits(dataSource.url, dataSource.sha256, ix)
-          )
-        }
       />
       <StatusBar />
       <section className={classes.main}>

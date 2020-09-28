@@ -26,6 +26,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@storybook/react": "^5.3.19",
     "axios": "^0.19.2",
+    "clsx": "^1.1.1",
     "commander": "^5.1.0",
     "d3-scale": "^3.2.1",
     "d3-scale-chromatic": "^1.5.0",

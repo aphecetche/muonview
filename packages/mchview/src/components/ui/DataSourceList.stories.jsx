@@ -1,5 +1,5 @@
 import React from "react";
-import AvailableDataList from "./AvailableDataList";
+import DataSourceList from "./DataSourceList";
 
 const availableFiles = [
   {
@@ -21,8 +21,8 @@ const availableFiles = [
 ];
 
 export default {
-  component: "AvailableDataList",
-  title: "DataSource/AvailableDataList",
+  component: "DataSourceList",
+  title: "DataSource/DataSourceList",
 };
 
-export const Digits = () => <AvailableDataList dataList={availableFiles} />;
+export const Digits = () => <DataSourceList dataList={availableFiles} />;

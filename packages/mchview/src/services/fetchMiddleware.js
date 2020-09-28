@@ -2,9 +2,9 @@ import axios from "axios";
 
 // Middleware to intercept actions which have a request key in their payload
 //
-// the request itself generate a [type]_REQUEST action
-// if the fetching is successfull then [type]_SUCCESS  action is dispatched
-// otherwise [type]_FAILURE is dispatched
+// the request itself generate a FETCH_[type] action
+// if the fetching is successfull then RECEIVE_[type]  action is dispatched
+// otherwise ERROR_FETCH_[type] is dispatched
 //
 
 const fetchMiddleware = () => (next) => (action) => {

@@ -3,9 +3,6 @@ import produce from "immer";
 import axios from "axios";
 import digits from "../store/digits.json";
 
-// FIXME: consolidate all instance of this reference in some kind of config file?
-const mappingAPI = "http://localhost:8080/v2/";
-
 // initial state
 export const initialState = {
   digits,
@@ -30,7 +27,7 @@ const completeDigits = (bareDigits) =>
     const padlist = bareDigits.map((x) => ({ deid: x.deid, padid: x.padid }));
     const request = { padlist, keepOrder: true };
     axios
-      .post(`${mappingAPI}padlist`, request)
+      .post(`${process.env.API_MAPPING}/padlist`, request)
       .then((response) => {
         resolve({ pads: response.data });
       })

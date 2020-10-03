@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "outDir": "./built",
+    "rootDir": "./",
+    "module": "commonjs",
+    "esModuleInterop": true
+  }
+}

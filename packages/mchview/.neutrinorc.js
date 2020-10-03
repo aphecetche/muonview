@@ -4,6 +4,7 @@ const jest = require("@neutrinojs/jest");
 
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   options: {
@@ -39,7 +40,9 @@ module.exports = {
             .plugin("analyzer")
             .use(BundleAnalyzerPlugin, [{ analyzerMode: "static" }])
         )
-        .devServer.port(1234);
+        .devServer.port(1234)
+        .host("0.0.0.0");
+      neutrino.config.plugin("dotenv").use(Dotenv);
     },
   ],
 };

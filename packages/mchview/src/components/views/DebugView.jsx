@@ -33,7 +33,6 @@ const Rect = ({
   />
 );
 
-const mappingServer = () => "http://localhost:8080/v2";
 const TestComp = () => <h1>This is TestComp</h1>;
 
 const DebugView = () => {
@@ -46,7 +45,7 @@ const DebugView = () => {
     payload: {
       request: {
         method: "post",
-        url: `${mappingServer()}/padlist`,
+        url: `${process.env.API_MAPPING}/padlist`,
         data: {
           deid: 102,
         },

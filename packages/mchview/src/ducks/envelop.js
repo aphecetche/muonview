@@ -6,8 +6,6 @@ import { isEqual, omit, defaultsDeep } from "lodash";
 import produce from "immer";
 import * as categories from "../categories";
 
-const mappingServer = () => "http://localhost:8080/v2";
-
 export const dePlaneName = (bending) =>
   bending === "true" || bending === true ? "bending" : "non-bending";
 
@@ -120,9 +118,7 @@ export const actions = {
           type: "DEPLANE",
           payload: {
             request: {
-              url: `${mappingServer()}/degeo?deid=${id.deid}&bending=${
-                id.bending
-              }`,
+              url: `${process.env.API_MAPPING}/degeo?deid=${id.deid}&bending=${id.bending}`,
               id,
             },
           },
@@ -145,9 +141,7 @@ export const actions = {
           type: "DUALSAMPAS",
           payload: {
             request: {
-              url: `${mappingServer()}/dualsampas?deid=${id.deid}&bending=${
-                id.bending
-              }`,
+              url: `${process.env.API_MAPPING}/dualsampas?deid=${id.deid}&bending=${id.bending}`,
               id,
             },
           },

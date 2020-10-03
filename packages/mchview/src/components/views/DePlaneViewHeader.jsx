@@ -11,7 +11,7 @@ import Drawer from "@material-ui/core/Drawer";
 
 const DePlaneViewHeader = ({ id, drawer }) => {
   const history = useHistory();
-  const [drawerIsOpen, setDrawerIsOpen] = useState(true);
+  const [drawerIsOpen, setDrawerIsOpen] = useState(false);
   const toggleDrawer = () => {
     setDrawerIsOpen(!drawerIsOpen);
   };

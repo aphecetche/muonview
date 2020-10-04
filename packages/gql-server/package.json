@@ -19,6 +19,7 @@
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "gql2ts": "^1.10.1",
     "gqlint": "^1.8.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.1.2",

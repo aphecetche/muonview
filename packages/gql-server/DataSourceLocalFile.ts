@@ -4,13 +4,25 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 
+interface IDataSource {
+  //__typename: "DataSource";
+  id: string;
+  kind: DataSourceType;
+  name: string;
+}
+
+const enum DataSourceType {
+  CCDB = "CCDB",
+  DPLSINK = "DPLSINK",
+}
+
 interface FileInfo {
   fullpath: string;
   sha256: string;
 }
 
 const createHashFromFile = async (filePath): Promise<string> =>
-  new Promise<string>((resolve, reject) => {
+  new Promise<string>((resolve) => {
     const hash = crypto.createHash("sha1");
     let r = null;
     const fd = fs.createReadStream(filePath).on("end", () => {
@@ -65,25 +77,37 @@ export default class DataSourceLocalFile implements DataSource {
     this.cache = cache || new InMemoryLRUCache();
   }
 
-  async getFileList(): Promise<Array<FileInfo>> {
+  async getFileList(): Promise<Array<IDataSource>> {
     //FIXME: should check cache first
-    console.log("loading files");
     const files = await getFileList(this.dir, this.regexp);
-    const ofiles = Array.from(files).map((f, i) => this.fileReducer(f, i));
-    console.log("files=", files);
-    console.log("ofiles=", ofiles);
+    const ofiles = Array.from(files).map((f) => this.fileReducer(f));
     return Array.from(ofiles);
   }
 
-  fileReducer(file: FileInfo, id: number): any {
+  async getFileById({ id }: { id: string }): Promise<IDataSource> {
+    const files = await this.getFileList();
+    console.log("getFileById:files=", files);
+    const f = files.filter((f) => f.id === id);
+    console.log("getFileById[id=", id, "]=", f);
+    return f[0];
+  }
+
+  fileReducer(file: FileInfo): IDataSource {
     //FIXME: should get the kind from the file itself,
     // not hard-code it
-    return {
-      id: id,
-      name: file.fullpath,
-      kind: "DPLSINK",
-      sha256: file.sha256,
-    };
+    if (file) {
+      return {
+        id: file.sha256,
+        name: file.fullpath,
+        kind: DataSourceType.DPLSINK,
+      };
+    } else {
+      return {
+        id: "unknown",
+        name: "",
+        kind: DataSourceType.DPLSINK,
+      };
+    }
   }
   // cacheKey(id: string): string {
   //   return `dplsink-${this.dir}-${id}`;

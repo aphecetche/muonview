@@ -1,11 +1,10 @@
 """
-  A DataSource can be anything that can provide data to mchview
+A DataSource can be anything that can provide data to mchview
 """
 type DataSource {
-        id: ID!
-        kind: DataSourceType!
-        name: String!
-        sha256: String!
+  id: ID!
+  kind: DataSourceType!
+  name: String!
 }
 
 enum DataSourceType {
@@ -14,7 +13,6 @@ enum DataSourceType {
 }
 
 type Query {
-        datasources: [DataSource]
-        datasource(id: ID!): [DataSource]
+  datasources: [DataSource]
+  datasource(id: ID!): DataSource
 }
-

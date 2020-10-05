@@ -13,7 +13,65 @@ enum DataSourceType {
   DPLSINK
 }
 
+type Vertex {
+    x: Float
+    y: Float
+}
+
+type Dim2D {
+    sx: Float
+    sy: Float
+}
+
+type DeId {
+    id: ID!
+}
+
+type PlaneId {
+    deid: DeId
+    bending: Boolean
+}
+
+type DsElecId {
+    deid: Int
+ dsid: Int
+}
+
+type DsElecChId {
+    deid: Int
+ dsid: Int
+ dsch: Int
+}
+
+type DetElecChId {
+    deid: Int
+ padid: Int
+}
+
+type ClusterId { 
+    id: ID
+}
+
+input InputElementId  {
+    deid: Int
+    dsid: Int
+    dsch: Int
+    padid: Int
+    bending: Boolean
+    clusterId: ID
+}
+
+union ElementId = DeId | DsElecChId | DetElecChId | ClusterId | DsElecId | PlaneId
+
+type Envelop {
+    id: ElementId
+    center: Vertex
+    size: Dim2D
+    vertices: [Vertex]
+}
+
 type Query {
   datasources: [DataSource]
   datasource(id: ID!): DataSource
+  envelop(id: InputElementId): Envelop
 }

@@ -1,6 +1,7 @@
 {
   "name": "readers",
   "version": "1.0.0",
+  "private": true,
   "main": "build/index.js",
   "license": "MIT",
   "scripts": {

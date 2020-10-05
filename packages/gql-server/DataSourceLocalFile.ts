@@ -1,12 +1,12 @@
 import { DataSource } from "apollo-datasource";
 import { InMemoryLRUCache, KeyValueCache } from "apollo-server-caching";
+import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 
 interface IDataSource {
   //__typename: "DataSource";
-  id: string;
+    id: string;
   kind: DataSourceType;
   name: string;
 }

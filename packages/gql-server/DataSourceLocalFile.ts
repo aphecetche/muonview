@@ -6,8 +6,9 @@ import path from "path";
 
 interface IDataSource {
   //__typename: "DataSource";
-    id: string;
-  kind: DataSourceType;
+  id: string;
+  what: string;
+  format: DataSourceType;
   name: string;
 }
 
@@ -93,19 +94,21 @@ export default class DataSourceLocalFile implements DataSource {
   }
 
   fileReducer(file: FileInfo): IDataSource {
-    //FIXME: should get the kind from the file itself,
+    //FIXME: should get the format from the file itself,
     // not hard-code it
     if (file) {
       return {
         id: file.sha256,
         name: file.fullpath,
-        kind: DataSourceType.DPLSINK,
+        format: DataSourceType.DPLSINK,
+        what: "zob-digits"
       };
     } else {
       return {
         id: "unknown",
         name: "",
-        kind: DataSourceType.DPLSINK,
+        format: DataSourceType.DPLSINK,
+        what: "digits"
       };
     }
   }

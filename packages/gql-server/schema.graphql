@@ -3,7 +3,8 @@ A DataSource can be anything that can provide data to mchview
 """
 type DataSource {
   id: ID!
-  kind: DataSourceType!
+  format: DataSourceType!
+  what: String!
   name: String!
 }
 

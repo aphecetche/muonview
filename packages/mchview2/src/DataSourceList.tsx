@@ -10,11 +10,23 @@ import IconButton from "@material-ui/core/IconButton";
 import ListItemText from "@material-ui/core/ListItemText";
 import GetAppIcon from "@material-ui/icons/GetApp";
 
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    margin: theme.spacing(1),
+  },
+  text: {
+    maxWidth: "15%",
+  },
+}));
+
 const GET_DATASOURCES = gql`
   query DataSources {
     datasources {
       id
-      kind
+      format
+      what
       name
     }
   }
@@ -24,6 +36,7 @@ const DataSourceList = () => {
   const { data, loading, error } = useQuery<DataSourcesTypes.DataSources>(
     GET_DATASOURCES
   );
+  const classes = useStyles();
   if (loading) {
     return <CircularProgress />;
   }
@@ -32,10 +45,10 @@ const DataSourceList = () => {
   }
   const list = data?.datasources?.map((x) => {
     if (!x) return null;
-    const sub = "subheadline"; //`${x.format} - ${x.indexSize} events`;
+    const sub = x.format; //`${x.format} - ${x.indexSize} events`;
     return (
-      <ListItem key={x.id}>
-        <ListItemText primary="digits" />
+      <ListItem className={classes.list} key={x.id}>
+        <ListItemText className={classes.text} primary={x.what} />
         <ListItemText primary={x.name} secondary={sub} />
         <ListItemSecondaryAction>
           <IconButton aria-label="load">
@@ -45,7 +58,7 @@ const DataSourceList = () => {
       </ListItem>
     );
   });
-  return <List>{list}</List>;
+  return <List>{list}</List>
 };
 
 export default DataSourceList;

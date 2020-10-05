@@ -12,7 +12,8 @@ import { DataSourceType } from "./../../__generated__/globalTypes";
 export interface DataSources_datasources {
   __typename: "DataSource";
   id: string;
-  kind: DataSourceType;
+  format: DataSourceType;
+  what: string;
   name: string;
 }
 

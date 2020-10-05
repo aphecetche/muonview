@@ -56,7 +56,6 @@ const getFileList = async (
             sha256: a,
           })
         );
-        console.log("filelist=", filelist);
         resolve(filelist);
       });
     });

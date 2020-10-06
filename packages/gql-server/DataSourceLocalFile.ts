@@ -22,7 +22,7 @@ interface FileInfo {
   sha256: string;
 }
 
-const createHashFromFile = async (filePath): Promise<string> =>
+const createHashFromFile = async (filePath:string): Promise<string> =>
   new Promise<string>((resolve) => {
     const hash = crypto.createHash("sha1");
     let r = null;

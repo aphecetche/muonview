@@ -1,18 +1,3 @@
-"""
-A DataSource can be anything that can provide data to mchview
-"""
-type DataSource {
-  id: ID!
-  format: DataSourceType!
-  what: String!
-  name: String!
-}
-
-enum DataSourceType {
-  CCDB
-  DPLSINK
-}
-
 type Vertex {
     x: Float
     y: Float
@@ -70,8 +55,6 @@ type Envelop {
     vertices: [Vertex]
 }
 
-type Query {
-  datasources: [DataSource]
-  datasource(id: ID!): DataSource
+extend type Query {
   envelop(id: InputElementId): Envelop
 }

@@ -1,0 +1,19 @@
+"""
+A DataSource can be anything that can provide data to mchview
+"""
+type DataSource {
+  id: ID!
+  format: DataSourceType!
+  what: String!
+  name: String!
+}
+
+enum DataSourceType {
+  CCDB
+  DPLSINK
+}
+
+extend type Query {
+  datasources: [DataSource]
+  datasource(id: ID!): DataSource
+}

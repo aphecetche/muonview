@@ -4,6 +4,7 @@ generates:
     documents: "./src/**/*.graphql"
     plugins:
       - typescript
+      - typescript-operations
       - typescript-react-apollo
     config:
       withHooks: true

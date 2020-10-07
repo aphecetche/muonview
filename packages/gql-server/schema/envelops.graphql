@@ -1,46 +1,46 @@
 type Vertex {
-    x: Float
-    y: Float
+    x: Float!
+    y: Float!
 }
 
 type Dim2D {
-    sx: Float
-    sy: Float
+    sx: Float!
+    sy: Float!
 }
 
 type DeId {
-    deid: Int
+    deid: Int!
 }
 
 type PlaneId {
-    deid: Int
-    bending: Boolean
+    deid: Int!
+    bending: Boolean!
 }
 
 type DsElecId {
-    deid: Int
-    dsid: Int
+    deid: Int!
+    dsid: Int!
 }
 
 type DsElecChId {
-    deid: Int
- dsid: Int
- dsch: Int
+    deid: Int!
+ dsid: Int!
+ dsch: Int!
 }
 
 type DetElecChId {
-    deid: Int
- padid: Int
+    deid: Int!
+ padid: Int!
 }
 
 type ClusterId { 
-    id: ID
+    id: ID!
 }
 
 type Envelop {
     id: ID!
-    center: Vertex
-    size: Dim2D
+    center: Vertex!
+    size: Dim2D!
     vertices: [Vertex]
 }
 

@@ -46,63 +46,87 @@ export type QueryEnvelopDePlaneArgs = {
 
 export type Vertex = {
   __typename?: 'Vertex';
-  x?: Maybe<Scalars['Float']>;
-  y?: Maybe<Scalars['Float']>;
+  x: Scalars['Float'];
+  y: Scalars['Float'];
 };
 
 export type Dim2D = {
   __typename?: 'Dim2D';
-  sx?: Maybe<Scalars['Float']>;
-  sy?: Maybe<Scalars['Float']>;
+  sx: Scalars['Float'];
+  sy: Scalars['Float'];
 };
 
 export type DeId = {
   __typename?: 'DeId';
-  deid?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
 };
 
 export type PlaneId = {
   __typename?: 'PlaneId';
-  deid?: Maybe<Scalars['Int']>;
-  bending?: Maybe<Scalars['Boolean']>;
+  deid: Scalars['Int'];
+  bending: Scalars['Boolean'];
 };
 
 export type DsElecId = {
   __typename?: 'DsElecId';
-  deid?: Maybe<Scalars['Int']>;
-  dsid?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
+  dsid: Scalars['Int'];
 };
 
 export type DsElecChId = {
   __typename?: 'DsElecChId';
-  deid?: Maybe<Scalars['Int']>;
-  dsid?: Maybe<Scalars['Int']>;
-  dsch?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
+  dsid: Scalars['Int'];
+  dsch: Scalars['Int'];
 };
 
 export type DetElecChId = {
   __typename?: 'DetElecChId';
-  deid?: Maybe<Scalars['Int']>;
-  padid?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
+  padid: Scalars['Int'];
 };
 
 export type ClusterId = {
   __typename?: 'ClusterId';
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
 };
 
 export type Envelop = {
   __typename?: 'Envelop';
   id: Scalars['ID'];
-  center?: Maybe<Vertex>;
-  size?: Maybe<Dim2D>;
+  center: Vertex;
+  size: Dim2D;
   vertices?: Maybe<Array<Maybe<Vertex>>>;
 };
 
+export type GetEnvelopDePlaneQueryVariables = Exact<{
+  deid: Scalars['Int'];
+  bending: Scalars['Boolean'];
+}>;
+
+
+export type GetEnvelopDePlaneQuery = (
+  { __typename?: 'Query' }
+  & { envelopDePlane?: Maybe<(
+    { __typename?: 'Envelop' }
+    & Pick<Envelop, 'id'>
+    & { size: (
+      { __typename?: 'Dim2D' }
+      & Pick<Dim2D, 'sx' | 'sy'>
+    ), vertices?: Maybe<Array<Maybe<(
+      { __typename?: 'Vertex' }
+      & Pick<Vertex, 'x' | 'y'>
+    )>>>, center: (
+      { __typename?: 'Vertex' }
+      & Pick<Vertex, 'x' | 'y'>
+    ) }
+  )> }
+);
+
 
 export const GetEnvelopDePlaneDocument = gql`
-    query GetEnvelopDePlane($deid: Int!) {
-  envelopDePlane(deid: $deid, bending: true) {
+    query GetEnvelopDePlane($deid: Int!, $bending: Boolean!) {
+  envelopDePlane(deid: $deid, bending: $bending) {
     id
     size {
       sx
@@ -133,6 +157,7 @@ export const GetEnvelopDePlaneDocument = gql`
  * const { data, loading, error } = useGetEnvelopDePlaneQuery({
  *   variables: {
  *      deid: // value for 'deid'
+ *      bending: // value for 'bending'
  *   },
  * });
  */

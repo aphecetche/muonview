@@ -1,26 +1,19 @@
 import * as React from "react";
+import { Envelop } from "../__generated__/graphql-react"
 
-// type Vertex = {
-//     x?: number
-//     y?: number
-// }
-//
-// type Envelop = {
-//   __typename?: 'Envelop';
-//   id: Scalars['ID'];
-//   center?: Maybe<Vertex>;
-//   size?: Maybe<Dim2D>;
-//   vertices?: Maybe<Array<Maybe<Vertex>>>;
-// };
-//
-// type PolygonProps = {
-//    envelop: Envelop
-//    fillColor?: string
-//    className?: string
-//    value?: number
-// }
+type Poly = {
+   id: string
+   envelop: Envelop
+   value?: number
+}
 
-const Polygon = ({ id, poly, fillColor, className }:PolygonProps) => {
+type PolygonProps = {
+   poly: Poly
+   fillColor?: string
+   className?: string
+}
+
+const Polygon = ({ poly, fillColor, className }:PolygonProps) => {
 
   const st = {
     fill: fillColor || "red",
@@ -32,10 +25,10 @@ const Polygon = ({ id, poly, fillColor, className }:PolygonProps) => {
   if (poly) {
     comp = (
       <polygon
-        className={classname}
-        key={id}
+        className={className}
+        key={poly.id}
         data-value={poly.value}
-        points={poly.vertices.map((v) => [v.x, v.y].join(","))}
+        points={poly?.envelop?.vertices?.map((v) => [v?.x, v?.y].join(",")).join(" ")}
         style={st}
       />
     );

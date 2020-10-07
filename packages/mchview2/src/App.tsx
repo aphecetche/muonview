@@ -5,7 +5,7 @@ import DePlane from "components/DePlane"
 function App() {
   return (
     <div className="App">
-      <DePlane deid={504} bending={true} />
+      <DePlane deid={500} bending={false} />
     </div>
   );
 }

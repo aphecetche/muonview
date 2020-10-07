@@ -1,5 +1,5 @@
-query GetEnvelopDePlane($deid: Int!) {
-  envelopDePlane(deid: $deid, bending: true) {
+query GetEnvelopDePlane($deid: Int!, $bending: Boolean!) {
+  envelopDePlane(deid: $deid, bending: $bending) {
     id
     size {
       sx

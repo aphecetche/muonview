@@ -1,15 +1,9 @@
 import * as React from "react"
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
-import { gql, useQuery } from "@apollo/client";
-import * as QueryTypes from "./__generated__/GetEnvelopDePlane"
 import { makeStyles } from "@material-ui/core/styles";
 import { useGetEnvelopDePlaneQuery } from "../__generated__/graphql-react"
-
-//  * const { data, loading, error } = useGetEnvelopDePlaneQuery({
-//  *   variables: {
-//  *      deid: // value for 'deid'
-//  *   },
+import Polygon from "components/Polygon"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,7 +16,7 @@ type DePlaneProps = { deid: number, bending: boolean }
 
 const DePlane = ({deid,bending}:DePlaneProps) => {
   const { data, loading, error } = useGetEnvelopDePlaneQuery(
-    { variables: { deid } }
+    { variables: { deid, bending} }
   );
   const classes = useStyles()
   if (loading) {
@@ -32,10 +26,15 @@ const DePlane = ({deid,bending}:DePlaneProps) => {
     console.log(error)
     return <Alert variant="outlined" severity="error">Something went wrong</Alert>;
   }
+    const poly = { id: data?.envelopDePlane?.id!, envelop: data?.envelopDePlane! }
+
     return (
     <>
     <h2>{data?.envelopDePlane?.id}</h2>
     <pre className={classes.root}>{JSON.stringify(data?.envelopDePlane)}</pre>
+    <svg viewBox="0 0 800 800">
+    <Polygon poly={poly} fillColor="blue"/>
+    </svg>
     </>
     )
 }

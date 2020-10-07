@@ -3,7 +3,6 @@
   "private": true,
   "workspaces": [
     "packages/mchview2",
-    "packages/mchview",
     "packages/gql-server"
   ],
   "scripts": {

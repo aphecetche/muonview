@@ -1,0 +1,11 @@
+schema: "../gql-server/schema/*.graphql"
+generates:
+  ./src/__generated__/graphql-react.ts:
+    documents: "./src/**/*.graphql"
+    plugins:
+      - typescript
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withMutationFn: false
+      

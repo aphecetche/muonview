@@ -6,8 +6,9 @@ import DataSourceEnvelop from "./DataSourceEnvelop";
 import resolvers from "./resolvers";
 import { resolve } from "path";
 import fs from "fs";
+import {DocumentNode} from "graphql";
 
-const combineSchemas = (schemaDir = "schema") => {
+const combineSchemas = (schemaDir = "schema"): DocumentNode => {
   const schemaFiles = fs
     .readdirSync(resolve(__dirname, schemaDir))
     .filter((file) => file.indexOf(".graphql") > 0);

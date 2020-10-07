@@ -29,7 +29,7 @@ export type Query = {
   __typename?: 'Query';
   datasource?: Maybe<DataSource>;
   datasources?: Maybe<Array<Maybe<DataSource>>>;
-  envelop?: Maybe<Envelop>;
+  envelopDePlane?: Maybe<Envelop>;
   root?: Maybe<Scalars['String']>;
 };
 
@@ -39,8 +39,9 @@ export type QueryDatasourceArgs = {
 };
 
 
-export type QueryEnvelopArgs = {
-  id?: Maybe<InputElementId>;
+export type QueryEnvelopDePlaneArgs = {
+  deid: Scalars['Int'];
+  bending: Scalars['Boolean'];
 };
 
 export type Vertex = {
@@ -193,13 +194,13 @@ export type ResolversTypes = ResolversObject<{
   String: ResolverTypeWrapper<Scalars['String']>;
   DataSourceType: DataSourceType;
   Query: ResolverTypeWrapper<{}>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Vertex: ResolverTypeWrapper<Vertex>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Dim2D: ResolverTypeWrapper<Dim2D>;
   DeId: ResolverTypeWrapper<DeId>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   PlaneId: ResolverTypeWrapper<PlaneId>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   DsElecId: ResolverTypeWrapper<DsElecId>;
   DsElecChId: ResolverTypeWrapper<DsElecChId>;
   DetElecChId: ResolverTypeWrapper<DetElecChId>;
@@ -215,13 +216,13 @@ export type ResolversParentTypes = ResolversObject<{
   ID: Scalars['ID'];
   String: Scalars['String'];
   Query: {};
+  Int: Scalars['Int'];
+  Boolean: Scalars['Boolean'];
   Vertex: Vertex;
   Float: Scalars['Float'];
   Dim2D: Dim2D;
   DeId: DeId;
-  Int: Scalars['Int'];
   PlaneId: PlaneId;
-  Boolean: Scalars['Boolean'];
   DsElecId: DsElecId;
   DsElecChId: DsElecChId;
   DetElecChId: DetElecChId;
@@ -242,7 +243,7 @@ export type DataSourceResolvers<ContextType = any, ParentType extends ResolversP
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   datasource?: Resolver<Maybe<ResolversTypes['DataSource']>, ParentType, ContextType, RequireFields<QueryDatasourceArgs, 'id'>>;
   datasources?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataSource']>>>, ParentType, ContextType>;
-  envelop?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopArgs, never>>;
+  envelopDePlane?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneArgs, 'deid' | 'bending'>>;
   root?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 }>;
 

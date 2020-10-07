@@ -37,17 +37,6 @@ type ClusterId {
     id: ID
 }
 
-input InputElementId  {
-    deid: Int
-    dsid: Int
-    dsch: Int
-    padid: Int
-    bending: Boolean
-    clusterId: ID
-}
-
-union ElementId = DeId | DsElecChId | DetElecChId | ClusterId | DsElecId | PlaneId
-
 type Envelop {
     id: ID!
     center: Vertex
@@ -56,5 +45,5 @@ type Envelop {
 }
 
 extend type Query {
-  envelop(id: InputElementId): Envelop
+  envelopDePlane(deid: Int!, bending: Boolean!) : Envelop
 }

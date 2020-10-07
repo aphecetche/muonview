@@ -1,28 +1,16 @@
-import { DataSource } from "apollo-datasource";
+import { DataSource as ApolloDataSource } from "apollo-datasource";
 import { InMemoryLRUCache, KeyValueCache } from "apollo-server-caching";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-
-interface IDataSource {
-  //__typename: "DataSource";
-  id: string;
-  what: string;
-  format: DataSourceType;
-  name: string;
-}
-
-const enum DataSourceType {
-  CCDB = "CCDB",
-  DPLSINK = "DPLSINK",
-}
+import { DataSource, DataSourceType } from "./src/generated/graphql";
 
 interface FileInfo {
   fullpath: string;
   sha256: string;
 }
 
-const createHashFromFile = async (filePath:string): Promise<string> =>
+const createHashFromFile = async (filePath: string): Promise<string> =>
   new Promise<string>((resolve) => {
     const hash = crypto.createHash("sha1");
     let r = null;
@@ -62,11 +50,11 @@ const getFileList = async (
   });
 };
 
-export default class DataSourceLocalFile implements DataSource {
+export default class DataSourceLocalFile implements ApolloDataSource {
   dir: string;
   regexp: string;
-  files: Promise<Set<FileInfo>>;
-  cache: KeyValueCache;
+  files!: Promise<Set<FileInfo>>;
+  cache!: KeyValueCache;
 
   constructor(dir: string, regexp: string) {
     this.dir = dir;
@@ -77,37 +65,35 @@ export default class DataSourceLocalFile implements DataSource {
     this.cache = cache || new InMemoryLRUCache();
   }
 
-  async getFileList(): Promise<Array<IDataSource>> {
+  async getFileList(): Promise<Array<DataSource>> {
     //FIXME: should check cache first
     const files = await getFileList(this.dir, this.regexp);
     const ofiles = Array.from(files).map((f) => this.fileReducer(f));
     return Array.from(ofiles);
   }
 
-  async getFileById({ id }: { id: string }): Promise<IDataSource> {
+  async getFileById({ id }: { id: string }): Promise<DataSource> {
     const files = await this.getFileList();
-    console.log("getFileById:files=", files);
     const f = files.filter((f) => f.id === id);
-    console.log("getFileById[id=", id, "]=", f);
     return f[0];
   }
 
-  fileReducer(file: FileInfo): IDataSource {
+  fileReducer(file: FileInfo): DataSource {
     //FIXME: should get the format from the file itself,
     // not hard-code it
     if (file) {
       return {
         id: file.sha256,
         name: file.fullpath,
-        format: DataSourceType.DPLSINK,
-        what: "zob-digits"
+        format: DataSourceType.Dplsink,
+        what: "zob-digits",
       };
     } else {
       return {
         id: "unknown",
         name: "",
-        format: DataSourceType.DPLSINK,
-        what: "digits"
+        format: DataSourceType.Dplsink,
+        what: "digits",
       };
     }
   }

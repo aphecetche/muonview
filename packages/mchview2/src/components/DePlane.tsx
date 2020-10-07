@@ -7,7 +7,10 @@ import Polygon from "components/Polygon"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: theme.spacing(1),
+    display: "flex",
+    width: "100%",
+    border: `1px solid ${theme.palette.primary.main}`,
+    padding: theme.spacing(2)
   },
 }));
 
@@ -26,13 +29,12 @@ const DePlane = ({deid,bending}:DePlaneProps) => {
     console.log(error)
     return <Alert variant="outlined" severity="error">Something went wrong</Alert>;
   }
-    const poly = { id: data?.envelopDePlane?.id!, envelop: data?.envelopDePlane! }
-
+    const envelop = data?.envelopDePlane
+    const poly = { id: data?.envelopDePlane?.id!, envelop: envelop!}
+    const viewBox = `0 0 ${envelop?.size.sx} ${envelop?.size.sy}`
     return (
     <>
-    <h2>{data?.envelopDePlane?.id}</h2>
-    <pre className={classes.root}>{JSON.stringify(data?.envelopDePlane)}</pre>
-    <svg viewBox="0 0 800 800">
+    <svg viewBox={viewBox} className={classes.root}>
     <Polygon poly={poly} fillColor="blue"/>
     </svg>
     </>

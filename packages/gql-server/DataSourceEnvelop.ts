@@ -11,20 +11,27 @@ export default class DataSourceEnvelop extends RESTDataSource {
     deid: number,
     bending: boolean
   ): Promise<Types.Envelop> {
-    // const req = `deid=${deid}&bending=${bending}`;
-    // const response = await this.get("v2/degeo", req);
-    const response = await this.get("v2/degeo",{ "deid": deid, "bending": bending })
+    const response = await this.get("v2/degeo", {
+      deid: deid,
+      bending: bending,
+    });
     const bendingString = bending ? "bending" : "non-bending";
     const id = `de-${deid}-${bendingString}`;
     return this.envelopReducer(response, id);
   }
 
   envelopReducer(response: any, id: string): Types.Envelop {
+    const shift: Types.Vertex = { x: response.sx / 2, y: response.sy / 2 };
+    const x = response.x - shift.x;
+    const y = response.y - shift.y;
     return {
       id,
       size: { sx: response.sx, sy: response.sy },
-      center: { x: response.x, y: response.y },
-      vertices: response.vertices,
+      center: { x: x, y: y },
+      vertices: response.vertices.map((v: Types.Vertex) => ({
+        x: v.x - x,
+        y: v.y - y,
+      })),
     };
   }
 

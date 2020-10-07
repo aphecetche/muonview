@@ -46,67 +46,56 @@ export type QueryEnvelopDePlaneArgs = {
 
 export type Vertex = {
   __typename?: 'Vertex';
-  x?: Maybe<Scalars['Float']>;
-  y?: Maybe<Scalars['Float']>;
+  x: Scalars['Float'];
+  y: Scalars['Float'];
 };
 
 export type Dim2D = {
   __typename?: 'Dim2D';
-  sx?: Maybe<Scalars['Float']>;
-  sy?: Maybe<Scalars['Float']>;
+  sx: Scalars['Float'];
+  sy: Scalars['Float'];
 };
 
 export type DeId = {
   __typename?: 'DeId';
-  deid?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
 };
 
 export type PlaneId = {
   __typename?: 'PlaneId';
-  deid?: Maybe<Scalars['Int']>;
-  bending?: Maybe<Scalars['Boolean']>;
+  deid: Scalars['Int'];
+  bending: Scalars['Boolean'];
 };
 
 export type DsElecId = {
   __typename?: 'DsElecId';
-  deid?: Maybe<Scalars['Int']>;
-  dsid?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
+  dsid: Scalars['Int'];
 };
 
 export type DsElecChId = {
   __typename?: 'DsElecChId';
-  deid?: Maybe<Scalars['Int']>;
-  dsid?: Maybe<Scalars['Int']>;
-  dsch?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
+  dsid: Scalars['Int'];
+  dsch: Scalars['Int'];
 };
 
 export type DetElecChId = {
   __typename?: 'DetElecChId';
-  deid?: Maybe<Scalars['Int']>;
-  padid?: Maybe<Scalars['Int']>;
+  deid: Scalars['Int'];
+  padid: Scalars['Int'];
 };
 
 export type ClusterId = {
   __typename?: 'ClusterId';
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
 };
-
-export type InputElementId = {
-  deid?: Maybe<Scalars['Int']>;
-  dsid?: Maybe<Scalars['Int']>;
-  dsch?: Maybe<Scalars['Int']>;
-  padid?: Maybe<Scalars['Int']>;
-  bending?: Maybe<Scalars['Boolean']>;
-  clusterId?: Maybe<Scalars['ID']>;
-};
-
-export type ElementId = DeId | DsElecChId | DetElecChId | ClusterId | DsElecId | PlaneId;
 
 export type Envelop = {
   __typename?: 'Envelop';
   id: Scalars['ID'];
-  center?: Maybe<Vertex>;
-  size?: Maybe<Dim2D>;
+  center: Vertex;
+  size: Dim2D;
   vertices?: Maybe<Array<Maybe<Vertex>>>;
 };
 
@@ -205,8 +194,6 @@ export type ResolversTypes = ResolversObject<{
   DsElecChId: ResolverTypeWrapper<DsElecChId>;
   DetElecChId: ResolverTypeWrapper<DetElecChId>;
   ClusterId: ResolverTypeWrapper<ClusterId>;
-  InputElementId: InputElementId;
-  ElementId: ResolversTypes['DeId'] | ResolversTypes['DsElecChId'] | ResolversTypes['DetElecChId'] | ResolversTypes['ClusterId'] | ResolversTypes['DsElecId'] | ResolversTypes['PlaneId'];
   Envelop: ResolverTypeWrapper<Envelop>;
 }>;
 
@@ -227,8 +214,6 @@ export type ResolversParentTypes = ResolversObject<{
   DsElecChId: DsElecChId;
   DetElecChId: DetElecChId;
   ClusterId: ClusterId;
-  InputElementId: InputElementId;
-  ElementId: ResolversParentTypes['DeId'] | ResolversParentTypes['DsElecChId'] | ResolversParentTypes['DetElecChId'] | ResolversParentTypes['ClusterId'] | ResolversParentTypes['DsElecId'] | ResolversParentTypes['PlaneId'];
   Envelop: Envelop;
 }>;
 
@@ -248,60 +233,56 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 }>;
 
 export type VertexResolvers<ContextType = any, ParentType extends ResolversParentTypes['Vertex'] = ResolversParentTypes['Vertex']> = ResolversObject<{
-  x?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  y?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  x?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  y?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type Dim2DResolvers<ContextType = any, ParentType extends ResolversParentTypes['Dim2D'] = ResolversParentTypes['Dim2D']> = ResolversObject<{
-  sx?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  sy?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  sx?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  sy?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type DeIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeId'] = ResolversParentTypes['DeId']> = ResolversObject<{
-  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type PlaneIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['PlaneId'] = ResolversParentTypes['PlaneId']> = ResolversObject<{
-  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  bending?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  deid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  bending?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type DsElecIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['DsElecId'] = ResolversParentTypes['DsElecId']> = ResolversObject<{
-  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  dsid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dsid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type DsElecChIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['DsElecChId'] = ResolversParentTypes['DsElecChId']> = ResolversObject<{
-  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  dsid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  dsch?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dsid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dsch?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type DetElecChIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['DetElecChId'] = ResolversParentTypes['DetElecChId']> = ResolversObject<{
-  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  padid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  deid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  padid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type ClusterIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['ClusterId'] = ResolversParentTypes['ClusterId']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-}>;
-
-export type ElementIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['ElementId'] = ResolversParentTypes['ElementId']> = ResolversObject<{
-  __resolveType: TypeResolveFn<'DeId' | 'DsElecChId' | 'DetElecChId' | 'ClusterId' | 'DsElecId' | 'PlaneId', ParentType, ContextType>;
 }>;
 
 export type EnvelopResolvers<ContextType = any, ParentType extends ResolversParentTypes['Envelop'] = ResolversParentTypes['Envelop']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  center?: Resolver<Maybe<ResolversTypes['Vertex']>, ParentType, ContextType>;
-  size?: Resolver<Maybe<ResolversTypes['Dim2D']>, ParentType, ContextType>;
+  center?: Resolver<ResolversTypes['Vertex'], ParentType, ContextType>;
+  size?: Resolver<ResolversTypes['Dim2D'], ParentType, ContextType>;
   vertices?: Resolver<Maybe<Array<Maybe<ResolversTypes['Vertex']>>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -317,7 +298,6 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   DsElecChId?: DsElecChIdResolvers<ContextType>;
   DetElecChId?: DetElecChIdResolvers<ContextType>;
   ClusterId?: ClusterIdResolvers<ContextType>;
-  ElementId?: ElementIdResolvers<ContextType>;
   Envelop?: EnvelopResolvers<ContextType>;
 }>;
 

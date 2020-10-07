@@ -1,7 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -58,12 +57,12 @@ export type Dim2D = {
 
 export type DeId = {
   __typename?: 'DeId';
-  id: Scalars['ID'];
+  deid?: Maybe<Scalars['Int']>;
 };
 
 export type PlaneId = {
   __typename?: 'PlaneId';
-  deid?: Maybe<DeId>;
+  deid?: Maybe<Scalars['Int']>;
   bending?: Maybe<Scalars['Boolean']>;
 };
 
@@ -104,7 +103,7 @@ export type ElementId = DeId | DsElecChId | DetElecChId | ClusterId | DsElecId |
 
 export type Envelop = {
   __typename?: 'Envelop';
-  id?: Maybe<ElementId>;
+  id: Scalars['ID'];
   center?: Maybe<Vertex>;
   size?: Maybe<Dim2D>;
   vertices?: Maybe<Array<Maybe<Vertex>>>;
@@ -198,16 +197,16 @@ export type ResolversTypes = ResolversObject<{
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Dim2D: ResolverTypeWrapper<Dim2D>;
   DeId: ResolverTypeWrapper<DeId>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   PlaneId: ResolverTypeWrapper<PlaneId>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   DsElecId: ResolverTypeWrapper<DsElecId>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   DsElecChId: ResolverTypeWrapper<DsElecChId>;
   DetElecChId: ResolverTypeWrapper<DetElecChId>;
   ClusterId: ResolverTypeWrapper<ClusterId>;
   InputElementId: InputElementId;
   ElementId: ResolversTypes['DeId'] | ResolversTypes['DsElecChId'] | ResolversTypes['DetElecChId'] | ResolversTypes['ClusterId'] | ResolversTypes['DsElecId'] | ResolversTypes['PlaneId'];
-  Envelop: ResolverTypeWrapper<Omit<Envelop, 'id'> & { id?: Maybe<ResolversTypes['ElementId']> }>;
+  Envelop: ResolverTypeWrapper<Envelop>;
 }>;
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -220,16 +219,16 @@ export type ResolversParentTypes = ResolversObject<{
   Float: Scalars['Float'];
   Dim2D: Dim2D;
   DeId: DeId;
+  Int: Scalars['Int'];
   PlaneId: PlaneId;
   Boolean: Scalars['Boolean'];
   DsElecId: DsElecId;
-  Int: Scalars['Int'];
   DsElecChId: DsElecChId;
   DetElecChId: DetElecChId;
   ClusterId: ClusterId;
   InputElementId: InputElementId;
   ElementId: ResolversParentTypes['DeId'] | ResolversParentTypes['DsElecChId'] | ResolversParentTypes['DetElecChId'] | ResolversParentTypes['ClusterId'] | ResolversParentTypes['DsElecId'] | ResolversParentTypes['PlaneId'];
-  Envelop: Omit<Envelop, 'id'> & { id?: Maybe<ResolversParentTypes['ElementId']> };
+  Envelop: Envelop;
 }>;
 
 export type DataSourceResolvers<ContextType = any, ParentType extends ResolversParentTypes['DataSource'] = ResolversParentTypes['DataSource']> = ResolversObject<{
@@ -260,12 +259,12 @@ export type Dim2DResolvers<ContextType = any, ParentType extends ResolversParent
 }>;
 
 export type DeIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['DeId'] = ResolversParentTypes['DeId']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export type PlaneIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['PlaneId'] = ResolversParentTypes['PlaneId']> = ResolversObject<{
-  deid?: Resolver<Maybe<ResolversTypes['DeId']>, ParentType, ContextType>;
+  deid?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   bending?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -299,7 +298,7 @@ export type ElementIdResolvers<ContextType = any, ParentType extends ResolversPa
 }>;
 
 export type EnvelopResolvers<ContextType = any, ParentType extends ResolversParentTypes['Envelop'] = ResolversParentTypes['Envelop']> = ResolversObject<{
-  id?: Resolver<Maybe<ResolversTypes['ElementId']>, ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   center?: Resolver<Maybe<ResolversTypes['Vertex']>, ParentType, ContextType>;
   size?: Resolver<Maybe<ResolversTypes['Dim2D']>, ParentType, ContextType>;
   vertices?: Resolver<Maybe<Array<Maybe<ResolversTypes['Vertex']>>>, ParentType, ContextType>;

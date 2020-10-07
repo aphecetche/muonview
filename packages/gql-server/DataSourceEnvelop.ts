@@ -18,9 +18,8 @@ export default class DataSourceEnvelop extends RESTDataSource {
 
     envelopReducer(response:any) : Types.Envelop {
         console.log("response=",response)
-        // const id = { deid: response.id,
-        //     bending: response.bending }
-       const id = { deid: response.id}
+        const bending = response.bending ? "bending":"non-bending"
+         const id = `deid-${response.id}-${bending}`
         return {
             id,
                 "size": {"sx":response.sx, "sy":response.sy},

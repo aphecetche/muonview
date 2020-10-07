@@ -9,17 +9,17 @@ type Dim2D {
 }
 
 type DeId {
-    id: ID!
+    deid: Int
 }
 
 type PlaneId {
-    deid: DeId
+    deid: Int
     bending: Boolean
 }
 
 type DsElecId {
     deid: Int
- dsid: Int
+    dsid: Int
 }
 
 type DsElecChId {
@@ -49,7 +49,7 @@ input InputElementId  {
 union ElementId = DeId | DsElecChId | DetElecChId | ClusterId | DsElecId | PlaneId
 
 type Envelop {
-    id: ElementId
+    id: ID!
     center: Vertex
     size: Dim2D
     vertices: [Vertex]

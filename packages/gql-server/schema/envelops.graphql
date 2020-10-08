@@ -49,5 +49,5 @@ type Envelop {
 
 extend type Query {
   envelopDePlane(deid: Int!, bending: Boolean!): Envelop
-  envelopDePlaneDualSampas(deid: Int!, bending: Boolean!): Envelop
+  envelopDePlaneDualSampas(deid: Int!, bending: Boolean!): [Envelop]!
 }

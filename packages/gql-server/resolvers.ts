@@ -20,7 +20,7 @@ const resolvers: Types.Resolvers = {
       _: any,
       { deid, bending }: Types.DePlaneId,
       { dataSources }: any
-    ): Types.Envelop => {
+    ): Array<Types.Envelop> => {
       return dataSources.envelops.getEnvelopDePlaneDualSampas(deid, bending);
     },
   },

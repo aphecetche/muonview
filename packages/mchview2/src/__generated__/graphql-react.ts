@@ -30,7 +30,7 @@ export type Query = {
   datasource?: Maybe<DataSource>;
   datasources?: Maybe<Array<Maybe<DataSource>>>;
   envelopDePlane?: Maybe<Envelop>;
-  envelopDePlaneDualSampas?: Maybe<Envelop>;
+  envelopDePlaneDualSampas: Array<Maybe<Envelop>>;
   root?: Maybe<Scalars['String']>;
 };
 

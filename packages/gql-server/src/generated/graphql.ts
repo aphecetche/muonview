@@ -30,7 +30,7 @@ export type Query = {
   datasource?: Maybe<DataSource>;
   datasources?: Maybe<Array<Maybe<DataSource>>>;
   envelopDePlane?: Maybe<Envelop>;
-  envelopDePlaneDualSampas?: Maybe<Envelop>;
+  envelopDePlaneDualSampas: Array<Maybe<Envelop>>;
   root?: Maybe<Scalars['String']>;
 };
 
@@ -242,7 +242,7 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   datasource?: Resolver<Maybe<ResolversTypes['DataSource']>, ParentType, ContextType, RequireFields<QueryDatasourceArgs, 'id'>>;
   datasources?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataSource']>>>, ParentType, ContextType>;
   envelopDePlane?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneArgs, 'deid' | 'bending'>>;
-  envelopDePlaneDualSampas?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneDualSampasArgs, 'deid' | 'bending'>>;
+  envelopDePlaneDualSampas?: Resolver<Array<Maybe<ResolversTypes['Envelop']>>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneDualSampasArgs, 'deid' | 'bending'>>;
   root?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 }>;
 

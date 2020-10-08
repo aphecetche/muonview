@@ -14,11 +14,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "100%",
     border: `1px solid ${theme.palette.primary.main}`,
-    //padding: theme.spacing(2),
   },
 }));
 
-type DePlaneProps = { deid: number; bending: boolean };
+type DePlaneProps = {
+  deid: number
+  bending: boolean
+  children?: React.ReactNode
+};
 
 const computeViewBox = (
   vertices: Maybe<Array<Maybe<Vertex>>>
@@ -36,7 +39,7 @@ const computeViewBox = (
   return { xmin, ymin, xmax, ymax };
 };
 
-const DePlane = ({ deid, bending }: DePlaneProps) => {
+const DePlane = ({ deid, bending,children }: DePlaneProps) => {
   const { data, loading, error } = useGetEnvelopDePlaneQuery({
     variables: { deid, bending },
   });
@@ -54,13 +57,15 @@ const DePlane = ({ deid, bending }: DePlaneProps) => {
   const envelop = data?.envelopDePlane;
   const poly = { id: envelop?.id!, envelop: envelop! };
   const bbox = computeViewBox(envelop!.vertices!);
-  const width = bbox.xmax-bbox.xmin
-  const height = bbox.ymax - bbox.ymin 
+  const width = bbox.xmax - bbox.xmin;
+  const height = bbox.ymax - bbox.ymin;
   const viewBox = `${bbox.xmin} ${bbox.ymin} ${width} ${height}`;
   return (
     <>
+      <pre>{viewBox}</pre>
       <svg viewBox={viewBox} className={classes.root}>
         <Polygon poly={poly} fillColor="blue" />
+        {children}
       </svg>
     </>
   );

@@ -1,14 +1,28 @@
-import { Envelop, Resolvers } from "./src/generated/graphql"
+import * as Types from "./src/generated/graphql";
 
-const  resolvers: Resolvers = {
+const resolvers: Types.Resolvers = {
   Query: {
-    datasources: (_, __, { dataSources }) => dataSources.localFiles.getFileList(),
+    datasources: (_, __, { dataSources }) =>
+      dataSources.localFiles.getFileList(),
+
     datasource: (_, { id }, { dataSources }) =>
       dataSources.localFiles.getFileById({ id }),
-    envelopDePlane: (_,{deid,bending}:{deid:number,bending:boolean},{dataSources}:{dataSources:any}) : Envelop =>
-    {
-        return dataSources.envelops.getEnvelopDePlane(deid, bending);
-      }
+
+    envelopDePlane: (
+      _,
+      { deid, bending }: Types.DePlaneId,
+      { dataSources }: any
+    ): Types.Envelop => {
+      return dataSources.envelops.getEnvelopDePlane(deid, bending);
+    },
+
+    envelopDePlaneDualSampas: (
+      _: any,
+      { deid, bending }: Types.DePlaneId,
+      { dataSources }: any
+    ): Types.Envelop => {
+      return dataSources.envelops.getEnvelopDePlaneDualSampas(deid, bending);
+    },
   },
 };
-export default resolvers
+export default resolvers;

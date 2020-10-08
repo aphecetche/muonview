@@ -3,6 +3,11 @@ type Vertex {
     y: Float!
 }
 
+type Offset {
+    x: Float!
+    y: Float!
+}
+
 type Dim2D {
     sx: Float!
     sy: Float!
@@ -12,7 +17,7 @@ type DeId {
     deid: Int!
 }
 
-type PlaneId {
+type DePlaneId {
     deid: Int!
     bending: Boolean!
 }
@@ -46,4 +51,5 @@ type Envelop {
 
 extend type Query {
   envelopDePlane(deid: Int!, bending: Boolean!) : Envelop
+  envelopDePlaneDualSampas(deid: Int!, bending: Boolean!) : Envelop
 }

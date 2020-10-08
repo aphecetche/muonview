@@ -30,6 +30,7 @@ export type Query = {
   datasource?: Maybe<DataSource>;
   datasources?: Maybe<Array<Maybe<DataSource>>>;
   envelopDePlane?: Maybe<Envelop>;
+  envelopDePlaneDualSampas?: Maybe<Envelop>;
   root?: Maybe<Scalars['String']>;
 };
 
@@ -44,8 +45,20 @@ export type QueryEnvelopDePlaneArgs = {
   bending: Scalars['Boolean'];
 };
 
+
+export type QueryEnvelopDePlaneDualSampasArgs = {
+  deid: Scalars['Int'];
+  bending: Scalars['Boolean'];
+};
+
 export type Vertex = {
   __typename?: 'Vertex';
+  x: Scalars['Float'];
+  y: Scalars['Float'];
+};
+
+export type Offset = {
+  __typename?: 'Offset';
   x: Scalars['Float'];
   y: Scalars['Float'];
 };
@@ -61,8 +74,8 @@ export type DeId = {
   deid: Scalars['Int'];
 };
 
-export type PlaneId = {
-  __typename?: 'PlaneId';
+export type DePlaneId = {
+  __typename?: 'DePlaneId';
   deid: Scalars['Int'];
   bending: Scalars['Boolean'];
 };
@@ -187,9 +200,10 @@ export type ResolversTypes = ResolversObject<{
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Vertex: ResolverTypeWrapper<Vertex>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  Offset: ResolverTypeWrapper<Offset>;
   Dim2D: ResolverTypeWrapper<Dim2D>;
   DeId: ResolverTypeWrapper<DeId>;
-  PlaneId: ResolverTypeWrapper<PlaneId>;
+  DePlaneId: ResolverTypeWrapper<DePlaneId>;
   DsElecId: ResolverTypeWrapper<DsElecId>;
   DsElecChId: ResolverTypeWrapper<DsElecChId>;
   DetElecChId: ResolverTypeWrapper<DetElecChId>;
@@ -207,9 +221,10 @@ export type ResolversParentTypes = ResolversObject<{
   Boolean: Scalars['Boolean'];
   Vertex: Vertex;
   Float: Scalars['Float'];
+  Offset: Offset;
   Dim2D: Dim2D;
   DeId: DeId;
-  PlaneId: PlaneId;
+  DePlaneId: DePlaneId;
   DsElecId: DsElecId;
   DsElecChId: DsElecChId;
   DetElecChId: DetElecChId;
@@ -229,10 +244,17 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
   datasource?: Resolver<Maybe<ResolversTypes['DataSource']>, ParentType, ContextType, RequireFields<QueryDatasourceArgs, 'id'>>;
   datasources?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataSource']>>>, ParentType, ContextType>;
   envelopDePlane?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneArgs, 'deid' | 'bending'>>;
+  envelopDePlaneDualSampas?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneDualSampasArgs, 'deid' | 'bending'>>;
   root?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 }>;
 
 export type VertexResolvers<ContextType = any, ParentType extends ResolversParentTypes['Vertex'] = ResolversParentTypes['Vertex']> = ResolversObject<{
+  x?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  y?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type OffsetResolvers<ContextType = any, ParentType extends ResolversParentTypes['Offset'] = ResolversParentTypes['Offset']> = ResolversObject<{
   x?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   y?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -249,7 +271,7 @@ export type DeIdResolvers<ContextType = any, ParentType extends ResolversParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type PlaneIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['PlaneId'] = ResolversParentTypes['PlaneId']> = ResolversObject<{
+export type DePlaneIdResolvers<ContextType = any, ParentType extends ResolversParentTypes['DePlaneId'] = ResolversParentTypes['DePlaneId']> = ResolversObject<{
   deid?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   bending?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -291,9 +313,10 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   DataSource?: DataSourceResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Vertex?: VertexResolvers<ContextType>;
+  Offset?: OffsetResolvers<ContextType>;
   Dim2D?: Dim2DResolvers<ContextType>;
   DeId?: DeIdResolvers<ContextType>;
-  PlaneId?: PlaneIdResolvers<ContextType>;
+  DePlaneId?: DePlaneIdResolvers<ContextType>;
   DsElecId?: DsElecIdResolvers<ContextType>;
   DsElecChId?: DsElecChIdResolvers<ContextType>;
   DetElecChId?: DetElecChIdResolvers<ContextType>;

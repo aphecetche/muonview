@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./build && tsc",
-    "start:dev": "nodemon",
+    "dev": "nodemon",
+    "start:dev": "concurrently \"yarn dev\" \"yarn codegen:watch\"",
     "start": "yarn codegen && yarn build && node build/index.js",
     "codegen": "graphql-codegen --config codegen.yml",
     "codegen:watch": "graphql-codegen --config codegen.yml --watch"
@@ -21,6 +22,7 @@
     "@graphql-codegen/typescript-resolvers": "1.17.10",
     "@types/node": "^14.11.2",
     "apollo": "^2.31.0",
+    "concurrently": "^5.3.0",
     "gql2ts": "^1.10.1",
     "gqlint": "^1.8.0",
     "nodemon": "^2.0.4",
@@ -33,6 +35,7 @@
     "apollo-datasource-rest": "^0.9.4",
     "apollo-server": "^2.18.1",
     "apollo-server-caching": "^0.5.2",
+    "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0"
   }

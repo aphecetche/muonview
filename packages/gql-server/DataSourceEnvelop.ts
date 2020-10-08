@@ -2,13 +2,29 @@ import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
 import * as Types from "./src/generated/graphql";
 
 const shiftVertex = (v: Types.Vertex, s: Types.Offset): Types.Vertex => {
-    return { x: v.x + s.x, y: v.y + s.y };
-  }
+  return { x: v.x + s.x, y: v.y + s.y };
+};
 
 export default class DataSourceEnvelop extends RESTDataSource {
   constructor(url: string) {
     super();
     this.baseURL = url;
+  }
+
+  async getBoundingBoxDePlane(
+    deid: number,
+    bending: boolean
+  ): Promise<Types.Vertex> {
+    const response = await this.get("v2/degeo", {
+      deid: deid,
+      bending: bending,
+    });
+    const shift: Types.Vertex = { x: response.sx / 2, y: response.sy / 2 };
+    const center = {
+      x: response.x - shift.x,
+      y: response.y - shift.y,
+    };
+    return center
   }
 
   async getEnvelopDePlane(
@@ -19,19 +35,13 @@ export default class DataSourceEnvelop extends RESTDataSource {
       deid: deid,
       bending: bending,
     });
+    const center = await this.getBoundingBoxDePlane(deid, bending);
     const bendingString = bending ? "bending" : "non-bending";
     const id = `de-${deid}-${bendingString}`;
-    const shift: Types.Vertex = { x: response.sx / 2, y: response.sy / 2 };
-    const center = {
-      x: response.x - shift.x,
-      y: response.y - shift.y,
-    };
     return {
       id,
-      size: { sx: response.sx, sy: response.sy },
-      center: center,
       vertices: response.vertices.map((v: Types.Vertex) =>
-        shiftVertex(v, center)
+        shiftVertex(v, { x: center.x, y: center.y })
       ),
     };
   }
@@ -48,11 +58,9 @@ export default class DataSourceEnvelop extends RESTDataSource {
     const bendingString = bending ? "bending" : "non-bending";
     const id = `dualsampas-${deid}-${bendingString}`;
     return {
-        id,
-        center: { x: 0, y: 0},
-        size: { sx: 0, sy: 0},
-        vertices: null
-    }
+      id,
+      vertices: [{x:0,y:0}],
+    };
   }
 
   //

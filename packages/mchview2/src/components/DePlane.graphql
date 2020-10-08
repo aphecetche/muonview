@@ -1,15 +1,7 @@
 query GetEnvelopDePlane($deid: Int!, $bending: Boolean!) {
   envelopDePlane(deid: $deid, bending: $bending) {
     id
-    size {
-      sx
-      sy
-    }
     vertices {
-      x
-      y
-    }
-    center {
       x
       y
     }

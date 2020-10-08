@@ -30,6 +30,7 @@ export type Query = {
   datasource?: Maybe<DataSource>;
   datasources?: Maybe<Array<Maybe<DataSource>>>;
   envelopDePlane?: Maybe<Envelop>;
+  envelopDePlaneDualSampas?: Maybe<Envelop>;
   root?: Maybe<Scalars['String']>;
 };
 
@@ -44,8 +45,20 @@ export type QueryEnvelopDePlaneArgs = {
   bending: Scalars['Boolean'];
 };
 
+
+export type QueryEnvelopDePlaneDualSampasArgs = {
+  deid: Scalars['Int'];
+  bending: Scalars['Boolean'];
+};
+
 export type Vertex = {
   __typename?: 'Vertex';
+  x: Scalars['Float'];
+  y: Scalars['Float'];
+};
+
+export type Offset = {
+  __typename?: 'Offset';
   x: Scalars['Float'];
   y: Scalars['Float'];
 };
@@ -61,8 +74,8 @@ export type DeId = {
   deid: Scalars['Int'];
 };
 
-export type PlaneId = {
-  __typename?: 'PlaneId';
+export type DePlaneId = {
+  __typename?: 'DePlaneId';
   deid: Scalars['Int'];
   bending: Scalars['Boolean'];
 };
@@ -94,9 +107,7 @@ export type ClusterId = {
 export type Envelop = {
   __typename?: 'Envelop';
   id: Scalars['ID'];
-  center: Vertex;
-  size: Dim2D;
-  vertices?: Maybe<Array<Maybe<Vertex>>>;
+  vertices: Array<Vertex>;
 };
 
 export type GetEnvelopDePlaneQueryVariables = Exact<{
@@ -110,16 +121,10 @@ export type GetEnvelopDePlaneQuery = (
   & { envelopDePlane?: Maybe<(
     { __typename?: 'Envelop' }
     & Pick<Envelop, 'id'>
-    & { size: (
-      { __typename?: 'Dim2D' }
-      & Pick<Dim2D, 'sx' | 'sy'>
-    ), vertices?: Maybe<Array<Maybe<(
+    & { vertices: Array<(
       { __typename?: 'Vertex' }
       & Pick<Vertex, 'x' | 'y'>
-    )>>>, center: (
-      { __typename?: 'Vertex' }
-      & Pick<Vertex, 'x' | 'y'>
-    ) }
+    )> }
   )> }
 );
 
@@ -128,15 +133,7 @@ export const GetEnvelopDePlaneDocument = gql`
     query GetEnvelopDePlane($deid: Int!, $bending: Boolean!) {
   envelopDePlane(deid: $deid, bending: $bending) {
     id
-    size {
-      sx
-      sy
-    }
     vertices {
-      x
-      y
-    }
-    center {
       x
       y
     }

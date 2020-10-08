@@ -107,9 +107,7 @@ export type ClusterId = {
 export type Envelop = {
   __typename?: 'Envelop';
   id: Scalars['ID'];
-  center: Vertex;
-  size: Dim2D;
-  vertices?: Maybe<Array<Maybe<Vertex>>>;
+  vertices: Array<Vertex>;
 };
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
@@ -303,9 +301,7 @@ export type ClusterIdResolvers<ContextType = any, ParentType extends ResolversPa
 
 export type EnvelopResolvers<ContextType = any, ParentType extends ResolversParentTypes['Envelop'] = ResolversParentTypes['Envelop']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  center?: Resolver<ResolversTypes['Vertex'], ParentType, ContextType>;
-  size?: Resolver<ResolversTypes['Dim2D'], ParentType, ContextType>;
-  vertices?: Resolver<Maybe<Array<Maybe<ResolversTypes['Vertex']>>>, ParentType, ContextType>;
+  vertices?: Resolver<Array<ResolversTypes['Vertex']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "100%",
     border: `1px solid ${theme.palette.primary.main}`,
-    padding: theme.spacing(2),
+    //padding: theme.spacing(2),
   },
 }));
 
@@ -54,10 +54,11 @@ const DePlane = ({ deid, bending }: DePlaneProps) => {
   const envelop = data?.envelopDePlane;
   const poly = { id: envelop?.id!, envelop: envelop! };
   const bbox = computeViewBox(envelop!.vertices!);
-  const viewBox = `${bbox.xmin} ${bbox.ymin} ${bbox.xmax} ${bbox.ymax}`;
+  const width = bbox.xmax-bbox.xmin
+  const height = bbox.ymax - bbox.ymin 
+  const viewBox = `${bbox.xmin} ${bbox.ymin} ${width} ${height}`;
   return (
     <>
-      <pre>{viewBox}</pre>
       <svg viewBox={viewBox} className={classes.root}>
         <Polygon poly={poly} fillColor="blue" />
       </svg>

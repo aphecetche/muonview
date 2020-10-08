@@ -31,6 +31,7 @@ export default class DataSourceEnvelop extends RESTDataSource {
     deid: number,
     bending: boolean
   ): Promise<Types.Envelop> {
+    console.log("v2/degeo deid=",deid,"bending=",bending)
     const response = await this.get("v2/degeo", {
       deid: deid,
       bending: bending,

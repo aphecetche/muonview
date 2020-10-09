@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   polygon: {
     strokeWidth: "0.5",
     stroke: theme.palette.secondary.main,
-    fill: theme.palette.grey[900],
+    fill: "none"
   },
 }));
 
@@ -42,7 +42,7 @@ const DualSampas = ({ deid, bending, children }: DualSampasProps) => {
   const envelop = data?.envelopDePlaneDualSampas;
   const dualSampas = envelop?.map((e) => {
     const poly = { id: e?.id!, envelop: e! };
-    return <Polygon poly={poly} className={classes.polygon} />;
+    return <Polygon key={poly.id} poly={poly} className={classes.polygon} />;
   });
   return (
     <>

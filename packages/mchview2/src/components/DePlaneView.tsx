@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useGetBoundingBoxDePlaneQuery, BoundingBox } from "../__generated__/graphql-react";
 import DePlane from "components/DePlane"
 import DualSampas from "components/DualSampas"
+import SVGView from "components/SVGView"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,16 +44,13 @@ const DePlaneView = ({ deid, bending, children }: DePlaneViewProps) => {
     );
   }
   const bbox: BoundingBox = data.boundingBoxDePlane
-  const width = bbox?.xmax - bbox?.xmin;
-  const height = bbox?.ymax - bbox?.ymin;
-  const viewBox = `${bbox.xmin} ${bbox.ymin} ${width} ${height}`;
   return (
     <>
-      <svg viewBox={viewBox} className={classes.root}>
+      <SVGView boundingBox={bbox} className={classes.root}>
       <DualSampas deid={deid} bending={bending} />
       <DePlane deid={deid} bending={bending} />
       {children}
-      </svg>
+      </SVGView>
     </>
   );
 };

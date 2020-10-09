@@ -102,7 +102,7 @@ const SVGView = ({
     >
       <g transform={transform}>{children}</g>
       {point ? (
-        <Target x={point.x} y={point.y} scale={0.5} color="yellow" />
+        <Target x={point.x} y={point.y} scale={2.0} color="yellow" />
       ) : null}
     </svg>
   );

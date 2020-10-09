@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   polygon: {
     strokeWidth: "0.5",
     stroke: theme.palette.secondary.main,
-    fill: "none"
+    fill: "transparent" /* WARNING: do not set this to none otherwise currentElement status will not work */
   },
 }));
 

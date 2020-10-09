@@ -3,7 +3,7 @@ import { InMemoryLRUCache, KeyValueCache } from "apollo-server-caching";
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-import { DataSource, DataSourceType } from "./src/generated/graphql";
+import { DataSource, DataSourceType } from "./src/__generated__/graphql";
 
 interface FileInfo {
   fullpath: string;

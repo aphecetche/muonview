@@ -1,4 +1,4 @@
-import * as Types from "./src/generated/graphql";
+import * as Types from "./src/__generated__/graphql";
 
 const resolvers: Types.Resolvers = {
   Query: {
@@ -7,6 +7,15 @@ const resolvers: Types.Resolvers = {
 
     datasource: (_, { id }, { dataSources }) =>
       dataSources.localFiles.getFileById({ id }),
+
+    boundingBoxDePlane: (
+      _,
+      { deid, bending }: Types.DePlaneId,
+      { dataSources }: any
+    ): Types.BoundingBox => {
+      return dataSources.envelops.getBoundingBoxDePlane(deid, bending);
+    },
+
 
     envelopDePlane: (
       _,
@@ -17,7 +26,7 @@ const resolvers: Types.Resolvers = {
     },
 
     envelopDePlaneDualSampas: (
-      _: any,
+      _,
       { deid, bending }: Types.DePlaneId,
       { dataSources }: any
     ): Array<Types.Envelop> => {

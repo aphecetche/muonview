@@ -1,0 +1,8 @@
+query GetBoundingBoxDePlane($deid: Int!, $bending: Boolean!) {
+  boundingBoxDePlane(deid: $deid, bending: $bending) {
+    xmin
+    ymin
+    xmax
+    ymax
+  }
+}

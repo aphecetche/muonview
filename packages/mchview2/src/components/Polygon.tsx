@@ -9,15 +9,10 @@ type Poly = {
 
 type PolygonProps = {
   poly: Poly;
-  fillColor?: string;
   className?: string;
 };
 
-const Polygon = ({ poly, fillColor, className }: PolygonProps) => {
-  const st = {
-    fill: fillColor || "red",
-    fillOpacity: fillColor ? 1 : 0,
-  };
+const Polygon = ({ poly, className }: PolygonProps) => {
 
   let comp = <p>Polygon is not defined</p>;
 
@@ -30,7 +25,6 @@ const Polygon = ({ poly, fillColor, className }: PolygonProps) => {
         points={poly?.envelop?.vertices
           ?.map((v) => [v?.x, v?.y].join(","))
           .join(" ")}
-        style={st}
       />
     );
   }

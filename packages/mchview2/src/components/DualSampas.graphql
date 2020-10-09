@@ -1,0 +1,9 @@
+query GetDualSampasEnvelop($deid: Int!, $bending: Boolean!) {
+  envelopDePlaneDualSampas(deid: $deid, bending: $bending) {
+    id
+    vertices {
+      x
+      y
+    }
+  }
+}

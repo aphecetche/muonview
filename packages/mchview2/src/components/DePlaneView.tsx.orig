@@ -2,8 +2,10 @@ import * as React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import { useGetEnvelopDePlaneQuery } from "../__generated__/graphql-react";
-import Polygon from "components/Polygon";
+import {
+  Vertex,
+  Maybe,
+} from "../__generated__/graphql-react";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,19 +13,15 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     border: `1px solid ${theme.palette.primary.main}`,
   },
-  polygon: {
-    strokeWidth: "1.0",
-    stroke: theme.palette.primary.main,
-    fill: "none",
-  },
 }));
 
-type DePlaneProps = {
-  deid: number;
-  bending: boolean;
+type DePlaneViewProps = {
+  deid: number
+  bending: boolean
+  children?: React.ReactNode
 };
 
-const DePlane = ({ deid, bending }: DePlaneProps) => {
+const DePlaneView = ({ deid, bending,children }: DePlaneViewProps) => {
   const { data, loading, error } = useGetEnvelopDePlaneQuery({
     variables: { deid, bending },
   });
@@ -40,7 +38,18 @@ const DePlane = ({ deid, bending }: DePlaneProps) => {
   }
   const envelop = data?.envelopDePlane;
   const poly = { id: envelop?.id!, envelop: envelop! };
-  return <Polygon poly={poly} className={classes.polygon} />;
+  const bbox = computeViewBox(envelop!.vertices!);
+  const width = bbox.xmax - bbox.xmin;
+  const height = bbox.ymax - bbox.ymin;
+  const viewBox = `${bbox.xmin} ${bbox.ymin} ${width} ${height}`;
+  return (
+    <>
+      <svg viewBox={viewBox} className={classes.root}>
+        <Polygon poly={poly} className={classes.polygon} />
+        {children}
+      </svg>
+    </>
+  );
 };
 
 export default DePlane;

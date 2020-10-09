@@ -27,10 +27,10 @@ export enum DataSourceType {
 
 export type Query = {
   __typename?: 'Query';
-  boundingBoxDePlane?: Maybe<BoundingBox>;
+  boundingBoxDePlane: BoundingBox;
   datasource?: Maybe<DataSource>;
   datasources?: Maybe<Array<Maybe<DataSource>>>;
-  envelopDePlane?: Maybe<Envelop>;
+  envelopDePlane: Envelop;
   envelopDePlaneDualSampas: Array<Maybe<Envelop>>;
   root?: Maybe<Scalars['String']>;
 };
@@ -256,10 +256,10 @@ export type DataSourceResolvers<ContextType = any, ParentType extends ResolversP
 }>;
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  boundingBoxDePlane?: Resolver<Maybe<ResolversTypes['BoundingBox']>, ParentType, ContextType, RequireFields<QueryBoundingBoxDePlaneArgs, 'deid' | 'bending'>>;
+  boundingBoxDePlane?: Resolver<ResolversTypes['BoundingBox'], ParentType, ContextType, RequireFields<QueryBoundingBoxDePlaneArgs, 'deid' | 'bending'>>;
   datasource?: Resolver<Maybe<ResolversTypes['DataSource']>, ParentType, ContextType, RequireFields<QueryDatasourceArgs, 'id'>>;
   datasources?: Resolver<Maybe<Array<Maybe<ResolversTypes['DataSource']>>>, ParentType, ContextType>;
-  envelopDePlane?: Resolver<Maybe<ResolversTypes['Envelop']>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneArgs, 'deid' | 'bending'>>;
+  envelopDePlane?: Resolver<ResolversTypes['Envelop'], ParentType, ContextType, RequireFields<QueryEnvelopDePlaneArgs, 'deid' | 'bending'>>;
   envelopDePlaneDualSampas?: Resolver<Array<Maybe<ResolversTypes['Envelop']>>, ParentType, ContextType, RequireFields<QueryEnvelopDePlaneDualSampasArgs, 'deid' | 'bending'>>;
   root?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
 }>;

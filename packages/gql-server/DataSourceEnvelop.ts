@@ -1,21 +1,45 @@
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
-import * as Types from "./src/generated/graphql";
+import * as Types from "./src/__generated__/graphql";
 
-// const shiftVertex = (v: Types.Vertex, s: Types.Offset): Types.Vertex => {
-//   return { x: v.x + s.x, y: v.y + s.y };
-// };
-
+const computeBoundingBox = (
+envelop: Types.Envelop
+): { xmin: number; ymin: number; xmax: number; ymax: number } => {
+  let xmin: number = Number.MAX_SAFE_INTEGER;
+  let ymin: number = Number.MAX_SAFE_INTEGER;
+  let xmax: number = -xmin;
+  let ymax: number = -ymin;
+  envelop?.vertices?.map((v) => {
+    xmin = Math.min(xmin, v?.x || 0.0);
+    ymin = Math.min(ymin, v?.y || 0.0);
+    xmax = Math.max(xmax, v?.x || 0.0);
+    ymax = Math.max(ymax, v?.y || 0.0);
+  });
+  return { xmin, ymin, xmax, ymax };
+};
 export default class DataSourceEnvelop extends RESTDataSource {
   constructor(url: string) {
     super();
     this.baseURL = url;
   }
 
+  async getBoundingBoxDePlane(
+    deid: number,
+    bending: boolean
+  ): Promise<Types.BoundingBox> {
+    console.log("getBoundingBoxDePlane deid=",deid,"bending=",bending)
+    const response: Types.Envelop = await this.get("v2/degeo", {
+      deid: deid,
+      bending: bending,
+    });
+    return computeBoundingBox(response)
+  }
+
+
   async getEnvelopDePlane(
     deid: number,
     bending: boolean
   ): Promise<Types.Envelop> {
-    console.log("v2/degeo deid=", deid, "bending=", bending);
+    console.log("getEnvelopDePlane deid=",deid,"bending=",bending)
     const response = await this.get("v2/degeo", {
       deid: deid,
       bending: bending,
@@ -36,12 +60,11 @@ export default class DataSourceEnvelop extends RESTDataSource {
       deid: deid,
       bending: bending,
     });
-    console.log(response);
     const bendingString = bending ? "bending" : "non-bending";
     const id = `dualsampas-${deid}-${bendingString}`;
-    return response.map((r: any) => ({
+    return response.map((r: Types.Envelop) => ({
       id: `${id}-ds-${r.id}`,
-      vertices: r.vertices /* FIXME: should shift here */,
+      vertices: r.vertices 
     }));
   }
 

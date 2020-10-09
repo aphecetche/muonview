@@ -47,7 +47,15 @@ type Envelop {
   vertices: [Vertex!]!
 }
 
+type BoundingBox {
+    xmin: Float!
+    ymin: Float!
+    xmax: Float!
+    ymax: Float!
+}
+
 extend type Query {
-  envelopDePlane(deid: Int!, bending: Boolean!): Envelop
+  boundingBoxDePlane(deid: Int!, bending: Boolean!): BoundingBox!
+  envelopDePlane(deid: Int!, bending: Boolean!): Envelop!
   envelopDePlaneDualSampas(deid: Int!, bending: Boolean!): [Envelop]!
 }

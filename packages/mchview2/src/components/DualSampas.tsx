@@ -2,7 +2,7 @@ import * as React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Alert from "@material-ui/lab/Alert";
 import { makeStyles } from "@material-ui/core/styles";
-import { useGetEnvelopDePlaneQuery } from "../__generated__/graphql-react";
+import { useGetDualSampasEnvelopQuery } from "../__generated__/graphql-react";
 import Polygon from "components/Polygon";
 
 const useStyles = makeStyles((theme) => ({
@@ -12,19 +12,20 @@ const useStyles = makeStyles((theme) => ({
     border: `1px solid ${theme.palette.primary.main}`,
   },
   polygon: {
-    strokeWidth: "1.0",
-    stroke: theme.palette.primary.main,
-    fill: "none",
+    strokeWidth: "0.5",
+    stroke: theme.palette.secondary.main,
+    fill: theme.palette.grey[900],
   },
 }));
 
-type DePlaneProps = {
+type DualSampasProps = {
   deid: number;
   bending: boolean;
+  children?: React.ReactNode;
 };
 
-const DePlane = ({ deid, bending }: DePlaneProps) => {
-  const { data, loading, error } = useGetEnvelopDePlaneQuery({
+const DualSampas = ({ deid, bending, children }: DualSampasProps) => {
+  const { data, loading, error } = useGetDualSampasEnvelopQuery({
     variables: { deid, bending },
   });
   const classes = useStyles();
@@ -38,9 +39,17 @@ const DePlane = ({ deid, bending }: DePlaneProps) => {
       </Alert>
     );
   }
-  const envelop = data?.envelopDePlane;
-  const poly = { id: envelop?.id!, envelop: envelop! };
-  return <Polygon poly={poly} className={classes.polygon} />;
+  const envelop = data?.envelopDePlaneDualSampas;
+  const dualSampas = envelop?.map((e) => {
+    const poly = { id: e?.id!, envelop: e! };
+    return <Polygon poly={poly} className={classes.polygon} />;
+  });
+  return (
+    <>
+      {dualSampas}
+      {children}
+    </>
+  );
 };
 
-export default DePlane;
+export default DualSampas;

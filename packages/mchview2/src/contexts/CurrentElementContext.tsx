@@ -1,37 +1,43 @@
 import * as React from "react";
-import { Envelop } from "../__generated__/graphql-react";
+import { EnvelopWithValue } from "../__generated__/graphql-react";
 
 type CurrentElementContextType = {
-    currentElement: Envelop | null
-    setCurrentElement: React.Dispatch<any>
-}
+  currentElement: EnvelopWithValue | null;
+  setCurrentElement: (element: EnvelopWithValue | null) => void
+};
 
-const CurrentElementContext = React.createContext<CurrentElementContextType|null>(null);
+const CurrentElementContext = React.createContext<CurrentElementContextType | null>(
+  null
+);
 
 const CurrentElementProvider = ({
   children,
 }: {
   children?: React.ReactNode;
 }) => {
-  const [currentElement, setIt] = React.useState(null);
+  const [
+    currentElement,
+    setCurrentElement,
+  ] = React.useState<EnvelopWithValue | null>(null);
 
-  const setCurrentElement = (element: any) => {
-      console.log("setCurrentElement with element=",element)
-      setIt(element)
-  }
   return (
-    <CurrentElementContext.Provider value={{currentElement,setCurrentElement}}>
+    <CurrentElementContext.Provider
+      value={{ currentElement, setCurrentElement }}
+    >
       {children}
     </CurrentElementContext.Provider>
   );
 };
 
 const useCurrentElement = () => {
-    const context = React.useContext(CurrentElementContext)
-    if (context===undefined) {
-        throw new Error("useCurrentElement must be used within a CurrentElementProvider")
-    }
+  const context= React.useContext(CurrentElementContext);
+  if (context === null) {
+    throw new Error(
+      "useCurrentElement must be used within a CurrentElementProvider"
+    );
+  } else {
     return context
-}
+  }
+};
 
 export { CurrentElementProvider, useCurrentElement };

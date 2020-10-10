@@ -35,7 +35,7 @@ const SVGView = ({
   children,
   initialOffset = { x: 0, y: 0 },
   initialZoom = 1,
-  className=""
+  className = "",
 }: SVGViewProps) => {
   const [point, setPoint] = useState<Point | null>(null);
   const [panStart, setPanStart] = useState<Point | null>(null);

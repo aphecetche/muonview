@@ -5,12 +5,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf ./build && tsc",
+    "build": "rimraf ./build && yarn generate && tsc",
     "dev": "nodemon",
-    "start:dev": "concurrently \"yarn dev\" \"yarn codegen:watch\"",
+    "start:dev": "concurrently \"yarn dev\" \"yarn generate:watch\"",
     "start": "yarn codegen && yarn build && node build/index.js",
-    "codegen": "graphql-codegen --config codegen.yml",
-    "codegen:watch": "graphql-codegen --config codegen.yml --watch"
+    "generate": "graphql-codegen --config codegen.yml",
+    "generate:watch": "graphql-codegen --config codegen.yml --watch"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,8 @@
     "@graphql-codegen/introspection": "1.18.0",
     "@graphql-codegen/typescript": "1.17.10",
     "@graphql-codegen/typescript-resolvers": "1.17.10",
+    "@testing-library/dom": "^7.24.5",
+    "@types/lodash": "^4.14.161",
     "@types/node": "^14.11.2",
     "apollo": "^2.31.0",
     "concurrently": "^5.3.0",
@@ -37,6 +39,7 @@
     "apollo-server-caching": "^0.5.2",
     "concurrently": "^5.3.0",
     "dotenv": "^8.2.0",
-    "graphql": "^15.3.0"
+    "graphql": "^15.3.0",
+    "lodash": "^4.17.20"
   }
 }

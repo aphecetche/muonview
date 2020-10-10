@@ -1,0 +1,51 @@
+import { ApolloServer, gql } from "apollo-server";
+import dotenv from "dotenv";
+import DataSourceLocalFile from "./DataSourceLocalFile";
+import DataSourceEnvelop from "./DataSourceEnvelop";
+
+import resolvers from "./resolvers";
+import { resolve } from "path";
+import fs from "fs";
+import {DocumentNode} from "graphql";
+
+const combineSchemas = (schemaDir = "schema"): DocumentNode => {
+  const schemaFiles = fs
+    .readdirSync(resolve(schemaDir))
+    .filter((file) => file.indexOf(".graphql") > 0);
+
+  const schema = schemaFiles
+    .map((file) =>
+      fs
+        .readFileSync(resolve(`${schemaDir}/${file}`), {
+          encoding: "utf8",
+        })
+        .toString()
+    )
+    .join();
+
+  return gql(schema);
+};
+
+const typeDefs = combineSchemas();
+
+dotenv.config();
+
+type DataSourcesType = {
+    localFiles: DataSourceLocalFile,
+    envelops: DataSourceEnvelop
+}
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  dataSources: (): DataSourcesType => ({
+    localFiles: new DataSourceLocalFile("/Users/laurent/tmp", "dpl"),
+    envelops: new DataSourceEnvelop(
+      process.env.MAPPING_API || "http://localhost:8080/"
+    ),
+  }),
+});
+
+server.listen({ port: process.env.PORT || 4321 }).then(({ url }) => {
+  console.log(`🚧 server ready at ${url}`);
+});

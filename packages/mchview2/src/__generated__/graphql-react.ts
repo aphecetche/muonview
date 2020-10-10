@@ -117,6 +117,12 @@ export type Envelop = {
   vertices: Array<Vertex>;
 };
 
+export type EnvelopWithValue = {
+  __typename?: 'EnvelopWithValue';
+  envelop: Envelop;
+  value?: Maybe<Scalars['Float']>;
+};
+
 export type BoundingBox = {
   __typename?: 'BoundingBox';
   xmin: Scalars['Float'];

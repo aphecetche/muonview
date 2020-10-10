@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "outDir": "./build",
-    "rootDir": "./",
+    "target": "es6",
+    "outDir": "dist",
     "module": "commonjs",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "baseUrl": "src",
+    "moduleResolution": "node"
   }
 }

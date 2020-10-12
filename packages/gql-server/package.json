@@ -5,10 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf ./build && yarn generate && tsc",
+    "build": "rimraf ./dist && yarn generate && tsc",
     "dev": "nodemon",
     "start:dev": "concurrently \"yarn dev\" \"yarn generate:watch\"",
-    "start": "yarn codegen && yarn build && node build/index.js",
+    "start": "node dist/index.js",
     "generate": "graphql-codegen --config codegen.yml",
     "generate:watch": "graphql-codegen --config codegen.yml --watch"
   },
